@@ -22,11 +22,11 @@ def make_regex(word):
     return word_regex
 
 
-def find_matches(word_list, word, pattern):
+def find_matches(word_list, pattern):
     "Searches word_list for possible matches"
     matches = []
     for item in word_list:
-        if len(item) == len(word) and re.search(pattern, item):
+        if re.search(pattern, item):
             matches.append(item)
     if len(matches) == 0:
         print('Could not find a word that matches your input.')
@@ -43,7 +43,7 @@ def main():
         'Please enter a word to solve.\n' +
         'Use spaces to signify unknown letters: ').lower()
 
-    find_matches(words, test_word, make_regex(test_word))
+    find_matches(words, make_regex(test_word))
 
 
 if __name__ == '__main__':
