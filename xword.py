@@ -2,9 +2,37 @@
 # -*- coding: utf-8 -*-
 """Crossword Solver Program"""
 
-__author__ = "???"
+__author__ = """Kyle Thomas, with the use of:
+             https://regex101.com/
+             https://docs.python.org/3/library/re.html
+             """
 
-# YOUR HELPER FUNCTION GOES HERE
+import re
+
+
+def make_regex(word):
+    "Creates a regex pattern based on the test_word input"
+    word_regex = r'^'
+    for char in word:
+        if char == ' ':
+            word_regex += r'\w'
+        else:
+            word_regex += char
+    word_regex += r'$'
+    return word_regex
+
+
+def find_matches(word_list, pattern):
+    "Searches word_list for possible matches"
+    matches = []
+    for item in word_list:
+        if re.search(pattern, item):
+            matches.append(item)
+    if len(matches) == 0:
+        print('Could not find a word that matches your input.')
+    else:
+        for match in matches:
+            print(match)
 
 
 def main():
@@ -12,10 +40,10 @@ def main():
         words = f.read().split()
 
     test_word = input(
-        'Please enter a word to solve.\nUse spaces to signify unknown letters: ').lower()
+        'Please enter a word to solve.\n' +
+        'Use spaces to signify unknown letters: ').lower()
 
-    # YOUR ADDITIONAL CODE HERE
-    raise NotImplementedError('Please complete this')
+    find_matches(words, make_regex(test_word))
 
 
 if __name__ == '__main__':
